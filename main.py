@@ -1,3 +1,5 @@
+# https://dev.to/pcraig3/quickstart-continuous-deployment-to-google-cloud-run-using-github-actions-fna
+
 import os
 
 from flask import Flask
@@ -7,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "Hello YouTube!"
+    return "Hello ZR AUTO DEPLOY"
 
 
 if __name__ == "__main__":

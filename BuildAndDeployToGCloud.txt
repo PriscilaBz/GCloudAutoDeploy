@@ -1,0 +1,26 @@
+GCLOUD_PRJ_ID=gcloudautodeploy                                 # Check the project ID (not the name) in https://console.cloud.google.com
+APP_NAME=auto-deploy-app                                       # Also called SERVICE_NAME
+EMAIL=github-actions@gcloudautodeploy.iam.gserviceaccount.com  # Check in the output of step 3
+KEY_FNAME=./keys.json                                          # Filename of the file that will be created in step 4
+
+
+# 1) Check STATUS
+gcloud builds submit --tag gcr.io/${GCLOUD_PRJ_ID}/${APP_NAME} --project=${GCLOUD_PRJ_ID}
+
+# 2)
+gcloud run deploy ${APP_NAME} --image gcr.io/${GCLOUD_PRJ_ID}/${APP_NAME} --platform managed --project=${GCLOUD_PRJ_ID} --allow-unauthenticated --region southamerica-east1
+
+# 3)
+gcloud iam service-accounts list --project=${GCLOUD_PRJ_ID}
+
+# 4) Generate auth file, don't forget to include it in .gitignore
+gcloud iam service-accounts keys create ${KEY_FNAME} --iam-account ${EMAIL}
+
+# 5) Authenticating yuurself locally
+gcloud auth activate-service-account --key-file=${KEY_FNAME}
+
+# 6) rerun step 1 and 2 to certificate everything is still ok
+
+# Deploy with Github actions
+
+
