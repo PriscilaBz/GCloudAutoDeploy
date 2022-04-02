@@ -41,7 +41,7 @@ jobs:
       - name: Deploy (🚀)
         uses: google-github-actions/deploy-cloudrun@v0
         with:
-          service: ${{ env.APP_ID }
+          service: ${{ env.APP_ID }}
           image: gcr.io/${{ env.PROJECT_ID }}/${{ env.APP_ID }}
           region: ${{ env.REGION }}
           credentials: ${{ secrets.GCP_SA_KEY_JSON }}
