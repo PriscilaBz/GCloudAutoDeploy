@@ -25,22 +25,22 @@ jobs:
         with:
           version: '286.0.0'
           service_account_key: ${{ secrets.GCP_SA_KEY_JSON }}
-          service_account_email: ${EMAIL}
-          project_id: ${PROJECT_ID}
+          service_account_email: ${{ env.EMAIL }}
+          project_id: ${{ env.PROJECT_ID }}
 
       - name: Building (🏗)
         run: |-
           gcloud builds submit \
-            --tag gcr.io/${PROJECT_ID}/${APP_ID}
-        #run: gcloud builds submit --tag gcr.io/${PROJECT_ID}/${APP_ID}:${GITHUB_SHA}
+            --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.APP_ID }}
+        #run: gcloud builds submit --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.APP_ID }}:${{ GITHUB_SHA }}
 
       # Setup gcloud CLI
       - name: Deploy (🚀)
         uses: google-github-actions/deploy-cloudrun@v0
         with:
-          service: ${APP_ID}
-          image: gcr.io/${PROJECT_ID}/${APP_ID}
-          region: ${REGION}
+          service: ${{ env.APP_ID }
+          image: gcr.io/${{ env.PROJECT_ID }}/${{ env.APP_ID }}
+          region: ${{ env.REGION }}
           credentials: ${{ secrets.GCP_SA_KEY_JSON }}
-          project_id: ${PROJECT_ID}
+          project_id: ${{ env.PROJECT_ID }}
 
