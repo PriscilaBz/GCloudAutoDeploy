@@ -36,7 +36,7 @@ jobs:
 
       # Setup gcloud CLI
       - name: Deploy (🚀)
-        uses: google-github-actions/deploy-cloudrun@master
+        uses: google-github-actions/deploy-cloudrun@main
         with:
           service: SERVICE_ID
           image: gcr.io/$PROJECT_ID/$APP_ID
